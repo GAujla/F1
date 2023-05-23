@@ -2,9 +2,9 @@ import requests
 
 # Set the base URL for the Ergast API
 base_url = 'http://ergast.com/api/f1/seasons.json?limit=1000'
-
+results_url = 'http://ergast.com/api/f1/current/last/results.json'
 # Send the GET request to the API
-response = requests.get(base_url)
+response = requests.get(results_url)
 
 # Check if the request was successful (status code 200)
 if response.status_code == 200:
