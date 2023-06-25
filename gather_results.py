@@ -17,7 +17,6 @@ class F1_Data_Information:
 
         race_response = requests.get(self.race_url)
         quali_response = requests.get(self.quali_url)
-
         self.race_data = race_response.json()
         self.quali_data = quali_response.json()
 
@@ -60,12 +59,18 @@ class F1_Data_Information:
             else:
                 DATA_DICT["Qualifying_Time_Q3"].append('The driver did not submit a time for Q3')
 
-
+    def WriteToCSV(self, filename):
+        with open(filename, "w", newline="") as file:
+            writer = csv.writer(file)
+            writer.writerow(DATA_DICT.keys())  # Write the headers
+            writer.writerows(zip(*DATA_DICT.values()))  # Write the data rows
 
 
 # Create an instance of F1_Data_Information
 race_url = 'http://ergast.com/api/f1/current/results.json'
 quali_url = 'http://ergast.com/api/f1/current/5/qualifying.json'
+filename = "f1_data.csv"
+
 f1_data = F1_Data_Information(race_url, quali_url)
 
 # Read the race and qualifying data
@@ -80,15 +85,5 @@ f1_data.Finished_Position()
 # Extract qualifying times
 f1_data.Qualifying_Time()
 
-# Specify the filename for the CSV file
-filename = "f1_data.csv"
+f1_data.WriteToCSV(filename)
 
-# Create a CSV file and write the data
-with open(filename, "w", newline="") as file:
-    writer = csv.writer(file)
-    writer.writerow(DATA_DICT.keys())  # Write the headers
-    writer.writerows(zip(*DATA_DICT.values()))  # Write the data rows
-
-
-
-#pp.pprint(round)
