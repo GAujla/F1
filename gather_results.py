@@ -59,6 +59,8 @@ class F1_Data_Information:
             else:
                 DATA_DICT["Qualifying_Time_Q3"].append('The driver did not submit a time for Q3')
 
+    def 
+
     def WriteToCSV(self, filename):
         with open(filename, "w", newline="") as file:
             writer = csv.writer(file)
